@@ -1,26 +1,33 @@
 <template>
   <main>
-    <div class="container main-container">
+    <div v-if="loading" class="container main-container">
       <albumsList
         v-for="(album, index) in albums"
         :key="index"
         :albums="album"/>
     </div>
+
+     <Loading v-else titleLoader="Loading..."  />
+
   </main>
 </template>
 
 <script>
 import axios from "axios";
 import albumsList from "./Albums.vue";
+import Loading from "./Loader.vue"
+
 export default {
   name: "Main",
   components: {
-    albumsList 
+    albumsList,
+    Loading
   },
   data(){
     return{
       albums: [],
-      api: "https://flynn.boolean.careers/exercises/api/array/music"
+      api: "https://flynn.boolean.careers/exercises/api/array/music",
+      loading : true
     }
   },
   methods:{
@@ -28,6 +35,7 @@ export default {
       axios.get(this.api)
         .then( r => {
           this.albums = r.data.response;
+          this.loading = true
         })
         .catch( e => {
           console.log(e);
