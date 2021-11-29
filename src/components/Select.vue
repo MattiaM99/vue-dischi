@@ -1,9 +1,10 @@
 <template>
   <div class="genere">
     <select
-      v-model="selected"
-      @select="$emit('music', selected)"
-      name="" id="">
+      v-model="select"
+      @select="$emit('music', select)"
+      name="" id="" >
+      <option selected disabled hidden value="">Seleziona genere</option>
       <option value="rock">Rock</option>
       <option value="pop">Pop</option>
       <option value="jazz">Jazz</option>
@@ -20,8 +21,6 @@ export default {
       music: ""
     }
   },
-  methods:{
-  },
   computed:{
     select(){
       return this.music
@@ -35,6 +34,10 @@ export default {
   select{
     padding: 15px 20px;
     font-weight: bold;
+    margin-right: 15px;
+  };
+  option{
+    color: black;
   }
 }
 </style>
